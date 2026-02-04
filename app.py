@@ -36,3 +36,6 @@ def post_link():
         redis.hset('links', hex(current_index), url)
         current_index = int(redis.incr('current_index')) # type: ignore
     return hex(current_index - 1)
+
+if __name__ == "__main__":
+    app.run("0.0.0.0")
