@@ -1,8 +1,11 @@
 from redis import Redis
 from flask import Flask, jsonify, request
 from flask_cors import CORS
+import os
 
-redis = Redis(decode_responses=True)
+redis_url = os.environ.get('REDIS_URL')
+
+redis = Redis.from_url(redis_url if redis_url is not None else "l")
 current_index: int = 0
 if redis.exists('current_index'):
     current_index = int(redis.get('current_index')) # type: ignore
